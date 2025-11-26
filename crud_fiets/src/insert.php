@@ -2,21 +2,29 @@
     // functie: formulier en database insert fiets
     // auteur: Vul hier je naam in
 
-    echo "<h1>Insert Fiets</h1>";
+    require_once 'config.php';
+    require_once 'Database.php';
+    require_once 'Fiets.php';
+    require_once 'FietsenRepository.php';
 
-    require_once('functions.php');
-	 
+    $db = new Database(SERVERNAME, USERNAME, PASSWORD, DATABASE);
+    $repository = new FietsenRepository($db);
+
     // Test of er op de insert-knop is gedrukt 
     if(isset($_POST) && isset($_POST['btn_ins'])){
+        // Maak een nieuw Fiets object
+        $fiets = new Fiets($_POST['merk'], $_POST['type'], $_POST['prijs']);
 
         // test of insert gelukt is
-        if(insertRecord($_POST) == true){
+        if($repository->insert($fiets)){
             echo "<script>alert('Fiets is toegevoegd')</script>";
         } else {
-            // Foutmelding wordt al geprint in de functie insertRecord
+            echo "<script>alert('Fiets is NIET toegevoegd')</script>";
         }
     }
 ?>
+
+<h1>Insert Fiets</h1>
 <html>
     <body>
         <form method="post">

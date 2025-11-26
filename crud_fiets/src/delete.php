@@ -1,13 +1,18 @@
 <?php
 // auteur: Vul hier je naam in
-// functie: verwijder een bier op basis van de id
-include 'functions.php';
+// functie: verwijder een fiets op basis van de id
 
-// Haal bier uit de database
+require_once 'config.php';
+require_once 'Database.php';
+require_once 'FietsenRepository.php';
+
+// Haal fiets uit de database
 if(isset($_GET['id'])){
+    $db = new Database(SERVERNAME, USERNAME, PASSWORD, DATABASE);
+    $repository = new FietsenRepository($db);
 
-    // test of insert gelukt is
-    if(deleteRecord($_GET['id']) == true){
+    // test of verwijderen gelukt is
+    if($repository->delete($_GET['id']) == true){
         echo '<script>alert("Fietscode: ' . $_GET['id'] . ' is verwijderd")</script>';
         echo "<script> location.replace('index.php'); </script>";
     } else {

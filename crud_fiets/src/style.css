@@ -5,10 +5,10 @@ label{
 }
 
 table, th, td {
-    background-color: aquamarine;
+    background-color: #f0f0f0;
     border: 1px solid black;
 }
 
 th{
-    background-color: grey;    
+    background-color: gray;    
 }
